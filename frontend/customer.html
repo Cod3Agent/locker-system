@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LockerBase — My Account</title>
+<style>
+:root{
+  --bg:#0e1118;--surface:#14171f;--card:#1a1e2b;--border:#242840;
+  --accent:#5b7fff;--warn:#f5a623;--danger:#e8455a;--success:#2ecc71;
+  --text:#e4e8f5;--muted:#5a6080;--font:'Inter',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh}
+
+/* LOGIN */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:0}
+.auth-wrap{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px;width:400px;max-width:95vw}
+.brand{font-size:22px;font-weight:800;margin-bottom:6px}
+.brand span{color:var(--accent)}
+.brand-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
+.tabs{display:flex;gap:0;margin-bottom:24px;background:var(--surface);border-radius:8px;padding:4px}
+.tab{flex:1;padding:8px;text-align:center;font-size:13px;font-weight:600;border-radius:6px;cursor:pointer;color:var(--muted);border:none;background:none;transition:all .15s}
+.tab.active{background:var(--card);color:var(--text)}
+.auth-form{display:none}.auth-form.active{display:block}
+.ff{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+.ff label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.ff input{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13.5px;outline:none;width:100%;font-family:var(--font)}
+.ff input:focus{border-color:var(--accent)}
+.err{color:var(--danger);font-size:12px;text-align:center;margin:8px 0}
+
+/* APP */
+#app{display:none}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.logo{font-weight:800;font-size:15px}.logo span{color:var(--accent)}
+.user-pill{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.content{max-width:860px;margin:0 auto;padding:32px 20px;display:flex;flex-direction:column;gap:24px}
+.section-title{font-size:16px;font-weight:700;margin-bottom:14px}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px}
+.locker-hero{display:flex;align-items:center;gap:20px}
+.locker-icon{width:64px;height:64px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.locker-info h2{font-size:22px;font-weight:800}
+.locker-info p{font-size:13px;color:var(--muted);margin-top:3px}
+.locker-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.meta-item{background:var(--surface);border-radius:10px;padding:12px 14px}
+.meta-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.meta-val{font-size:16px;font-weight:700;margin-top:4px}
+
+/* PAYMENTS */
+.pay-item{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
+.pay-item:last-child{border-bottom:none}
+.pay-left{display:flex;flex-direction:column;gap:3px}
+.pay-title{font-size:14px;font-weight:600}
+.pay-sub{font-size:12px;color:var(--muted)}
+.pay-right{display:flex;align-items:center;gap:10px}
+.pay-amt{font-size:15px;font-weight:700}
+.pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
+.pill-green{background:rgba(46,204,113,.15);color:var(--success)}
+.pill-warn{background:rgba(245,166,35,.15);color:var(--warn)}
+.pill-red{background:rgba(232,69,90,.15);color:var(--danger)}
+
+/* TICKET FORM */
+.ticket-form{display:flex;flex-direction:column;gap:12px}
+.tf-field{display:flex;flex-direction:column;gap:5px}
+.tf-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.tf-input{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13.5px;outline:none;width:100%;font-family:var(--font)}
+.tf-input:focus{border-color:var(--accent)}
+textarea.tf-input{resize:vertical;min-height:90px}
+
+/* TICKETS LIST */
+.ticket-item{padding:14px 0;border-bottom:1px solid var(--border)}
+.ticket-item:last-child{border-bottom:none}
+.ticket-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.ticket-subject{font-weight:600;font-size:14px}
+.ticket-msg{font-size:13px;color:var(--muted);margin-bottom:6px}
+.ticket-reply{background:rgba(91,127,255,.08);border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 6px 6px 0;font-size:13px;margin-top:8px}
+.ticket-reply-label{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:opacity .15s,transform .1s;width:100%;justify-content:center}
+.btn:active{transform:scale(.97)}.btn:hover{opacity:.85}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-stripe{background:#635bff;color:#fff}
+.btn-sm{width:auto;padding:6px 13px}
+
+/* BANNER */
+.banner{padding:14px 16px;border-radius:10px;font-size:13px;margin-bottom:0}
+.banner-success{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);color:var(--success)}
+.banner-warn{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);color:var(--warn)}
+
+/* TOAST */
+#toast-wrap{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:999}
+.toast{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px 15px;font-size:13px;display:flex;align-items:center;gap:8px;animation:si .2s ease;max-width:300px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.toast.success{border-color:var(--success)}.toast.error{border-color:var(--danger)}
+@keyframes si{from{transform:translateX(50px);opacity:0}to{transform:none;opacity:1}}
+.muted{color:var(--muted);font-size:13px;text-align:center;padding:24px}
+</style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="login-screen">
+  <div class="auth-wrap">
+    <div class="brand">Locker<span>Base</span></div>
+    <div class="brand-sub">Your locker account portal</div>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('login')">Sign In</button>
+      <button class="tab" onclick="switchTab('register')">Create Account</button>
+    </div>
+
+    <div class="auth-form active" id="form-login">
+      <div class="ff"><label>Email</label><input type="email" id="li-email" placeholder="you@email.com"/></div>
+      <div class="ff"><label>Password</label><input type="password" id="li-pass" placeholder="••••••••"/></div>
+      <div class="err" id="li-err"></div>
+      <button class="btn btn-primary" onclick="doLogin()">Sign In</button>
+    </div>
+
+    <div class="auth-form" id="form-register">
+      <div class="ff"><label>Full Name</label><input type="text" id="rg-name" placeholder="Jane Smith"/></div>
+      <div class="ff"><label>Email</label><input type="email" id="rg-email" placeholder="you@email.com"/></div>
+      <div class="ff"><label>Password</label><input type="password" id="rg-pass" placeholder="Create a password"/></div>
+      <div class="err" id="rg-err"></div>
+      <button class="btn btn-primary" onclick="doRegister()">Create Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header>
+    <div class="logo">Locker<span>Base</span></div>
+    <div class="user-pill">
+      <span id="user-name"></span>
+      <button class="btn btn-ghost btn-sm" onclick="logout()">Sign out</button>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- Payment status banner -->
+    <div id="pay-banner" style="display:none"></div>
+
+    <!-- LOCKER INFO -->
+    <div class="card" id="locker-section">
+      <div class="section-title">My Locker</div>
+      <div id="locker-content"><div class="muted">Loading…</div></div>
+    </div>
+
+    <!-- PAYMENTS -->
+    <div class="card">
+      <div class="section-title">Payment History</div>
+      <div id="payments-content"><div class="muted">Loading…</div></div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="card">
+      <div class="section-title">Submit a Support Request</div>
+      <div class="ticket-form">
+        <div class="tf-field"><label class="tf-label">Subject</label><input class="tf-input" id="t-subject" placeholder="Briefly describe the issue"/></div>
+        <div class="tf-field"><label class="tf-label">Message</label><textarea class="tf-input" id="t-msg" placeholder="Tell us more…"></textarea></div>
+        <button class="btn btn-ghost" style="width:auto;align-self:flex-start" onclick="submitTicket()">Submit Request</button>
+      </div>
+    </div>
+
+    <!-- MY TICKETS -->
+    <div class="card">
+      <div class="section-title">My Requests</div>
+      <div id="tickets-content"><div class="muted">Loading…</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div id="toast-wrap"></div>
+
+<script>
+const API='';
+let TOKEN=localStorage.getItem('cust_token')||'';
+
+const h=()=>({'Content-Type':'application/json','Authorization':'Bearer '+TOKEN});
+
+async function api(method,path,body){
+  const res=await fetch(API+path,{method,headers:h(),body:body?JSON.stringify(body):undefined});
+  if(res.status===401){logout();return null;}
+  if(!res.ok){const e=await res.json();toast(e.detail||'Error','error');return null;}
+  return res.json();
+}
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',i===(t==='login'?0:1)));
+  document.getElementById('form-login').classList.toggle('active',t==='login');
+  document.getElementById('form-register').classList.toggle('active',t==='register');
+}
+
+async function doLogin(){
+  const email=document.getElementById('li-email').value;
+  const pass=document.getElementById('li-pass').value;
+  const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pass})});
+  if(!res.ok){document.getElementById('li-err').textContent='Invalid email or password';return;}
+  const json=await res.json();
+  TOKEN=json.access_token;
+  localStorage.setItem('cust_token',TOKEN);
+  showApp(json.name);
+}
+
+async function doRegister(){
+  const name=document.getElementById('rg-name').value;
+  const email=document.getElementById('rg-email').value;
+  const pass=document.getElementById('rg-pass').value;
+  if(!name||!email||!pass){document.getElementById('rg-err').textContent='Fill all fields';return;}
+  const res=await fetch(API+'/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,password:pass})});
+  if(!res.ok){const e=await res.json();document.getElementById('rg-err').textContent=e.detail;return;}
+  const json=await res.json();
+  TOKEN=json.access_token;
+  localStorage.setItem('cust_token',TOKEN);
+  showApp(json.name);
+}
+
+function logout(){TOKEN='';localStorage.removeItem('cust_token');location.reload();}
+
+function showApp(name){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('user-name').textContent=name;
+  checkPaymentReturn();
+  loadAll();
+}
+
+function checkPaymentReturn(){
+  const params=new URLSearchParams(location.search);
+  const banner=document.getElementById('pay-banner');
+  if(params.get('payment')==='success'){
+    banner.style.display='block';
+    banner.className='banner banner-success';
+    banner.textContent='✓ Payment successful! Your locker is up to date.';
+    history.replaceState(null,'',location.pathname);
+  } else if(params.get('payment')==='cancelled'){
+    banner.style.display='block';
+    banner.className='banner banner-warn';
+    banner.textContent='Payment was cancelled. You can try again below.';
+    history.replaceState(null,'',location.pathname);
+  }
+}
+
+// ── LOAD DATA ─────────────────────────────────────────────────────────────────
+async function loadAll(){
+  loadLocker(); loadPayments(); loadTickets();
+}
+
+async function loadLocker(){
+  const locker=await api('GET','/customer/locker');
+  const el=document.getElementById('locker-content');
+  if(!locker){
+    el.innerHTML=`<div class="muted">No locker is assigned to your account yet. Contact us if you believe this is an error.</div>`;
+    return;
+  }
+  const today=new Date();today.setHours(0,0,0,0);
+  const due=locker.due_date?new Date(locker.due_date+'T00:00:00'):null;
+  const diff=due?Math.round((due-today)/86400000):null;
+  const statusPill=diff===null?''
+    :diff<0?`<span class="pill pill-red">⚠ Overdue by ${Math.abs(diff)} day${Math.abs(diff)!==1?'s':''}</span>`
+    :diff<=7?`<span class="pill pill-warn">⏰ Due in ${diff} day${diff!==1?'s':''}</span>`
+    :`<span class="pill pill-green">✓ Current</span>`;
+
+  el.innerHTML=`
+    <div class="locker-hero">
+      <div class="locker-icon">🔒</div>
+      <div class="locker-info">
+        <h2>Locker ${locker.number}</h2>
+        <p>${locker.zone} ${statusPill?'&nbsp;'+statusPill:''}</p>
+      </div>
+    </div>
+    <div class="locker-meta">
+      <div class="meta-item"><div class="meta-label">Zone</div><div class="meta-val">${locker.zone}</div></div>
+      <div class="meta-item"><div class="meta-label">Monthly Rate</div><div class="meta-val">$${locker.monthly_rate.toFixed(2)}</div></div>
+      <div class="meta-item"><div class="meta-label">Next Due</div><div class="meta-val">${locker.due_date||'—'}</div></div>
+    </div>
+    ${locker.notes?`<div style="margin-top:14px;font-size:13px;color:var(--muted)">📝 ${locker.notes}</div>`:''}`;
+}
+
+async function loadPayments(){
+  const pays=await api('GET','/customer/payments');
+  const el=document.getElementById('payments-content');
+  if(!pays||pays.length===0){
+    el.innerHTML=`<div class="muted">No payment records yet.</div>`;
+    return;
+  }
+  el.innerHTML=pays.map(p=>{
+    const pill=p.status==='paid'?'pill-green':p.status==='overdue'?'pill-red':'pill-warn';
+    const payBtn=p.status!=='paid'?`<button class="btn btn-stripe btn-sm" onclick="checkout('${p.id}')">Pay with Card</button>`:'';
+    return `<div class="pay-item">
+      <div class="pay-left">
+        <div class="pay-title">Locker ${p.locker?.number||'—'} — Monthly Rent</div>
+        <div class="pay-sub">Due: ${p.due_date||'—'} ${p.paid_at?'· Paid: '+p.paid_at.slice(0,10):''}</div>
+      </div>
+      <div class="pay-right">
+        <div class="pay-amt">$${p.amount.toFixed(2)}</div>
+        <span class="pill ${pill}">${p.status}</span>
+        ${payBtn}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function checkout(paymentId){
+  const res=await api('POST',`/payments/checkout/${paymentId}`);
+  if(!res)return;
+  window.location.href=res.checkout_url;
+}
+
+async function loadTickets(){
+  const tix=await api('GET','/customer/tickets');
+  const el=document.getElementById('tickets-content');
+  if(!tix||tix.length===0){
+    el.innerHTML=`<div class="muted">No requests submitted yet.</div>`;
+    return;
+  }
+  el.innerHTML=tix.map(t=>{
+    const pill=t.status==='open'?'pill-red':t.status==='in_progress'?'pill-warn':'pill-green';
+    const reply=t.admin_reply?`<div class="ticket-reply"><div class="ticket-reply-label">Staff Reply</div>${t.admin_reply}</div>`:'';
+    return `<div class="ticket-item">
+      <div class="ticket-head">
+        <div class="ticket-subject">${t.subject}</div>
+        <span class="pill ${pill}">${t.status.replace('_',' ')}</span>
+      </div>
+      <div class="ticket-msg">${t.message}</div>
+      ${reply}
+    </div>`;
+  }).join('');
+}
+
+async function submitTicket(){
+  const subject=document.getElementById('t-subject').value.trim();
+  const message=document.getElementById('t-msg').value.trim();
+  if(!subject||!message){toast('Fill in both fields','error');return;}
+  const res=await api('POST','/customer/tickets',{subject,message});
+  if(!res)return;
+  toast('Request submitted!','success');
+  document.getElementById('t-subject').value='';
+  document.getElementById('t-msg').value='';
+  loadTickets();
+}
+
+function toast(msg,type='success'){
+  const icons={success:'✓',error:'✗',warn:'⚠'};
+  const el=document.createElement('div');el.className=`toast ${type}`;
+  el.innerHTML=`<span>${icons[type]}</span> ${msg}`;
+  document.getElementById('toast-wrap').appendChild(el);
+  setTimeout(()=>el.remove(),4000);
+}
+
+// Auto-login if token exists
+if(TOKEN){
+  fetch(API+'/customer/me',{headers:h()}).then(r=>{
+    if(r.ok)r.json().then(u=>showApp(u.name));
+    else{TOKEN='';localStorage.removeItem('cust_token');}
+  });
+}
+</script>
+</body>
+</html>
