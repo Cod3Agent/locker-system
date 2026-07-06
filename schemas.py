@@ -41,6 +41,8 @@ class LockerCreate(BaseModel):
     due_date: Optional[date] = None
     notes: Optional[str] = None
     tenant_id: Optional[str] = None
+    payment_amount: Optional[float] = None
+    billing_frequency: Optional[str] = None  # "monthly" or "yearly"
 
 class LockerUpdate(BaseModel):
     zone: Optional[str] = None

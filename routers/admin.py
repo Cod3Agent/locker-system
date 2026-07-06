@@ -64,10 +64,11 @@ def create_locker(body: schemas.LockerCreate, db: Session = Depends(get_db), _=D
 
     # Auto-create first payment when a tenant is assigned
     if body.tenant_id:
+        amount = body.payment_amount if body.payment_amount else body.monthly_rate
         payment = models.Payment(
             customer_id=body.tenant_id,
             locker_id=locker.id,
-            amount=body.monthly_rate,
+            amount=amount,
             due_date=body.due_date,
             status=models.PaymentStatus.pending,
         )

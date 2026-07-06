@@ -13,16 +13,12 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;display:flex;flex-direction:column}
 a{color:var(--accent);text-decoration:none}
-
-/* LOGIN */
 #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg)}
 .login-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px;width:380px;max-width:95vw}
 .login-logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;margin-bottom:32px;color:var(--text)}
 .login-logo span{color:var(--accent)}
 .login-title{font-size:22px;font-weight:700;margin-bottom:6px}
 .login-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
-
-/* APP */
 #app{display:none;flex-direction:column;min-height:100vh}
 header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px}
@@ -41,30 +37,21 @@ main{padding:28px;overflow-y:auto}
 .page-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
 .page-title{font-size:20px;font-weight:700}
 .page-sub{font-size:13px;color:var(--muted);margin-top:3px}
-
-/* STATS */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
 .stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
 .stat-label{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
 .stat-val{font-size:30px;font-weight:800;margin-top:5px}
 .stat-val.blue{color:var(--accent)}.stat-val.red{color:var(--danger)}.stat-val.green{color:var(--success)}.stat-val.warn{color:var(--warn)}
-
-/* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:opacity .15s,transform .1s}
 .btn:active{transform:scale(.97)}.btn:hover{opacity:.85}
 .btn-primary{background:var(--accent);color:#fff}
 .btn-ghost{background:var(--card);color:var(--text);border:1px solid var(--border)}
 .btn-danger{background:var(--danger);color:#fff}
-.btn-warn{background:var(--warn);color:#000}
-.btn-success{background:var(--success);color:#000}
 .btn-sm{padding:5px 11px;font-size:12px}
-
-/* TABLE */
 .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .toolbar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border)}
 .search{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none}
 .search:focus{border-color:var(--accent)}
-.fsel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-size:13px;cursor:pointer;outline:none}
 table{width:100%;border-collapse:collapse}
 th{text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:11px 18px;border-bottom:1px solid var(--border)}
 td{padding:13px 18px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
@@ -77,8 +64,6 @@ tr:hover td{background:rgba(255,255,255,.015)}
 .pill-blue{background:rgba(91,127,255,.15);color:var(--accent)}
 .mono{font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:var(--muted)}
 .acts{display:flex;gap:5px}
-
-/* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center}
 .overlay.open{display:flex}
 .modal{background:var(--card);border:1px solid var(--border);border-radius:16px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.6)}
@@ -95,21 +80,16 @@ label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.05em;tex
 input,select,textarea{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13.5px;font-family:var(--font);outline:none;width:100%;transition:border-color .15s}
 input:focus,select:focus,textarea:focus{border-color:var(--accent)}
 textarea{resize:vertical;min-height:70px}
-
-/* FORM (login) */
 .form-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
 .form-field label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
 .err{color:var(--danger);font-size:12px;margin-top:8px;text-align:center}
-
-/* TOAST */
 #toast-wrap{position:fixed;bottom:22px;right:22px;display:flex;flex-direction:column;gap:8px;z-index:999}
 .toast{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px 15px;font-size:13px;display:flex;align-items:center;gap:8px;animation:si .2s ease;max-width:300px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .toast.success{border-color:var(--success)}.toast.error{border-color:var(--danger)}.toast.warn{border-color:var(--warn)}
 @keyframes si{from{transform:translateX(50px);opacity:0}to{transform:none;opacity:1}}
 .empty-row td{text-align:center;color:var(--muted);padding:40px}
-
-/* ticket reply box */
-.reply-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:10px;font-size:13px;color:var(--accent)}
+.pay-section{margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}
+.pay-section-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
 </style>
 </head>
 <body>
@@ -191,7 +171,6 @@ textarea{resize:vertical;min-height:70px}
       <div class="page" id="page-payments">
         <div class="page-head">
           <div><div class="page-title">Payments</div><div class="page-sub">All payment records</div></div>
-          <button class="btn btn-primary" onclick="openPayModal()">+ Create Payment</button>
         </div>
         <div class="table-wrap">
           <table><thead><tr><th>Customer</th><th>Locker</th><th>Amount</th><th>Due</th><th>Status</th><th>Paid At</th></tr></thead>
@@ -220,10 +199,26 @@ textarea{resize:vertical;min-height:70px}
       <div class="fgrid">
         <div class="field"><label>Locker Number *</label><input id="lm-num" placeholder="A-101"/></div>
         <div class="field"><label>Zone *</label><input id="lm-zone" placeholder="Floor 1"/></div>
-        <div class="field"><label>Monthly Rate ($) *</label><input id="lm-rate" type="number" step="0.01" placeholder="45.00"/></div>
+        <div class="field"><label>Monthly Rate ($) *</label><input id="lm-rate" type="number" step="0.01" placeholder="45.00" oninput="updatePaymentAmount()"/></div>
         <div class="field"><label>Due Date</label><input id="lm-due" type="date"/></div>
-        <div class="field ffull"><label>Assign Tenant</label><select id="lm-tenant"><option value="">— Unassigned —</option></select></div>
+        <div class="field ffull"><label>Assign Tenant</label><select id="lm-tenant" onchange="togglePaymentFields()"><option value="">— Unassigned —</option></select></div>
         <div class="field ffull"><label>Notes</label><textarea id="lm-notes"></textarea></div>
+      </div>
+      <div id="payment-fields" style="display:none" class="pay-section">
+        <div class="pay-section-label">Payment Due on Assignment</div>
+        <div class="fgrid">
+          <div class="field">
+            <label>Billing Frequency *</label>
+            <select id="lm-frequency" onchange="updatePaymentAmount()">
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly (12 months)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Amount to Charge ($) *</label>
+            <input id="lm-pay-amount" type="number" step="0.01" placeholder="45.00"/>
+          </div>
+        </div>
       </div>
     </div>
     <div class="mfoot"><button class="btn btn-ghost" onclick="closeAll()">Cancel</button><button class="btn btn-primary" onclick="saveLocker()">Save</button></div>
@@ -242,21 +237,6 @@ textarea{resize:vertical;min-height:70px}
       </div>
     </div>
     <div class="mfoot"><button class="btn btn-ghost" onclick="closeAll()">Cancel</button><button class="btn btn-primary" onclick="saveCustomer()">Create Account</button></div>
-  </div>
-</div>
-
-<!-- PAYMENT MODAL -->
-<div class="overlay" id="pay-modal">
-  <div class="modal">
-    <div class="mhead"><div class="mtitle">Create Payment</div><button class="xbtn" onclick="closeAll()">×</button></div>
-    <div class="mbody">
-      <div class="fgrid">
-        <div class="field ffull"><label>Locker *</label><select id="pm-locker"><option value="">Select locker…</option></select></div>
-        <div class="field"><label>Amount ($) *</label><input id="pm-amt" type="number" step="0.01" placeholder="45.00"/></div>
-        <div class="field"><label>Due Date</label><input id="pm-due" type="date"/></div>
-      </div>
-    </div>
-    <div class="mfoot"><button class="btn btn-ghost" onclick="closeAll()">Cancel</button><button class="btn btn-primary" onclick="savePayment()">Create</button></div>
   </div>
 </div>
 
@@ -282,7 +262,7 @@ textarea{resize:vertical;min-height:70px}
 <div id="toast-wrap"></div>
 
 <script>
-const API = '';  // same origin
+const API = '';
 let TOKEN = localStorage.getItem('emp_token') || '';
 let lockers=[], customers=[], payments=[], tickets=[];
 let editLockerId=null, editTicketId=null;
@@ -296,7 +276,6 @@ async function api(method, path, body) {
   return res.json();
 }
 
-// ── AUTH ──────────────────────────────────────────────────────────────────────
 async function doLogin() {
   const email=document.getElementById('l-email').value;
   const pass=document.getElementById('l-pass').value;
@@ -312,25 +291,16 @@ async function doLogin() {
   loadAll();
 }
 
-function logout() {
-  TOKEN=''; localStorage.removeItem('emp_token');
-  location.reload();
-}
+function logout() { TOKEN=''; localStorage.removeItem('emp_token'); location.reload(); }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
 async function loadAll() {
   [lockers, customers, payments, tickets] = await Promise.all([
     api('GET','/admin/lockers'), api('GET','/admin/users'),
     api('GET','/admin/payments'), api('GET','/admin/tickets'),
   ]);
-  lockers   = lockers   || [];
-  customers = customers || [];
-  payments  = payments  || [];
-  tickets   = tickets   || [];
-
+  lockers=lockers||[]; customers=customers||[]; payments=payments||[]; tickets=tickets||[];
   await loadStats();
-  renderLockers(); renderCustomers(); renderPayments(); renderTickets();
-  updateSidebar();
+  renderLockers(); renderCustomers(); renderPayments(); renderTickets(); updateSidebar();
 }
 
 async function loadStats() {
@@ -349,7 +319,6 @@ function updateSidebar() {
   document.getElementById('sb-tickets').textContent = tickets.filter(t=>t.status==='open').length;
 }
 
-// ── NAV ───────────────────────────────────────────────────────────────────────
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
@@ -357,12 +326,11 @@ function showPage(id) {
   document.getElementById('nav-'+id).classList.add('active');
 }
 
-// ── LOCKERS ───────────────────────────────────────────────────────────────────
 function renderLockers() {
   const q = (document.getElementById('ls').value||'').toLowerCase();
   const rows = lockers.filter(l=>!q||l.number.toLowerCase().includes(q)||(l.zone||'').toLowerCase().includes(q)||(l.tenant?.name||'').toLowerCase().includes(q));
   document.getElementById('locker-sub').textContent = rows.length+' lockers';
-  document.getElementById('sb-total').textContent   = lockers.length;
+  document.getElementById('sb-total').textContent = lockers.length;
   const today = new Date(); today.setHours(0,0,0,0);
   document.getElementById('locker-tbody').innerHTML = rows.length ? rows.map(l=>{
     const due  = l.due_date ? new Date(l.due_date+'T00:00:00') : null;
@@ -385,6 +353,18 @@ function renderLockers() {
   }).join('') : `<tr class="empty-row"><td colspan="7">No lockers yet.</td></tr>`;
 }
 
+function togglePaymentFields() {
+  const hasTenant = !!document.getElementById('lm-tenant').value;
+  document.getElementById('payment-fields').style.display = hasTenant ? 'block' : 'none';
+  if (hasTenant) updatePaymentAmount();
+}
+
+function updatePaymentAmount() {
+  const rate = parseFloat(document.getElementById('lm-rate').value) || 0;
+  const freq = document.getElementById('lm-frequency').value;
+  document.getElementById('lm-pay-amount').value = freq === 'yearly' ? (rate * 12).toFixed(2) : rate.toFixed(2);
+}
+
 function openLockerModal(id) {
   editLockerId = id||null;
   document.getElementById('lm-title').textContent = id ? 'Edit Locker' : 'Add Locker';
@@ -394,19 +374,28 @@ function openLockerModal(id) {
   document.getElementById('lm-rate').value  = l?.monthly_rate||'';
   document.getElementById('lm-due').value   = l?.due_date||'';
   document.getElementById('lm-notes').value = l?.notes||'';
+  document.getElementById('lm-frequency').value = 'monthly';
+  document.getElementById('lm-pay-amount').value = '';
+  document.getElementById('payment-fields').style.display = 'none';
   const sel = document.getElementById('lm-tenant');
   sel.innerHTML = '<option value="">— Unassigned —</option>' + customers.map(c=>`<option value="${c.id}" ${l?.tenant?.id===c.id?'selected':''}>${c.name} (${c.email})</option>`).join('');
   document.getElementById('locker-modal').classList.add('open');
 }
 
 async function saveLocker() {
+  const tenantId  = document.getElementById('lm-tenant').value||null;
+  const frequency = document.getElementById('lm-frequency').value;
+  const payAmount = parseFloat(document.getElementById('lm-pay-amount').value);
+  if (tenantId && !payAmount) { toast('Enter a payment amount','error'); return; }
   const body = {
     number: document.getElementById('lm-num').value.trim(),
     zone:   document.getElementById('lm-zone').value.trim(),
     monthly_rate: parseFloat(document.getElementById('lm-rate').value),
     due_date: document.getElementById('lm-due').value||null,
     notes:   document.getElementById('lm-notes').value.trim()||null,
-    tenant_id: document.getElementById('lm-tenant').value||null,
+    tenant_id: tenantId,
+    payment_amount: tenantId ? payAmount : null,
+    billing_frequency: tenantId ? frequency : null,
   };
   if (!body.number||!body.zone||!body.monthly_rate) { toast('Fill required fields','error'); return; }
   const res = editLockerId
@@ -423,7 +412,6 @@ async function deleteLocker(id) {
   toast('Deleted','warn'); await loadAll();
 }
 
-// ── CUSTOMERS ─────────────────────────────────────────────────────────────────
 function renderCustomers() {
   const q = (document.getElementById('cs').value||'').toLowerCase();
   const rows = customers.filter(c=>!q||c.name.toLowerCase().includes(q)||c.email.toLowerCase().includes(q));
@@ -450,7 +438,6 @@ async function deleteCustomer(id) {
   await api('DELETE',`/admin/users/${id}`); toast('Removed','warn'); await loadAll();
 }
 
-// ── PAYMENTS ──────────────────────────────────────────────────────────────────
 function renderPayments() {
   document.getElementById('pay-tbody').innerHTML = payments.length ? payments.map(p=>{
     const pill = p.status==='paid'?'pill-green':p.status==='overdue'?'pill-red':'pill-warn';
@@ -464,23 +451,6 @@ function renderPayments() {
   }).join('') : `<tr class="empty-row"><td colspan="6">No payments yet.</td></tr>`;
 }
 
-function openPayModal() {
-  const occ = lockers.filter(l=>l.is_occupied&&l.tenant);
-  document.getElementById('pm-locker').innerHTML='<option value="">Select locker…</option>'+occ.map(l=>`<option value="${l.id}">${l.number} — ${l.tenant.name} ($${l.monthly_rate}/mo)</option>`).join('');
-  document.getElementById('pay-modal').classList.add('open');
-}
-
-async function savePayment() {
-  const lid=document.getElementById('pm-locker').value;
-  const amt=parseFloat(document.getElementById('pm-amt').value);
-  const due=document.getElementById('pm-due').value;
-  if(!lid||!amt){toast('Fill required fields','error');return;}
-  const res=await api('POST','/admin/payments',{locker_id:lid,amount:amt,due_date:due||null});
-  if(!res)return;
-  toast('Payment record created','success'); closeAll(); await loadAll();
-}
-
-// ── TICKETS ───────────────────────────────────────────────────────────────────
 function renderTickets() {
   document.getElementById('ticket-tbody').innerHTML = tickets.length ? tickets.map(t=>{
     const pill=t.status==='open'?'pill-red':t.status==='in_progress'?'pill-warn':'pill-green';
@@ -520,7 +490,6 @@ function toast(msg,type='success') {
   setTimeout(()=>el.remove(),4000);
 }
 
-// Auto-login if token saved
 if (TOKEN) {
   fetch(API+'/admin/stats',{headers:h()}).then(r=>{
     if(r.ok){
